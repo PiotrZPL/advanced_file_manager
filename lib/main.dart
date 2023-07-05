@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -84,9 +87,20 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisSpacing: 10,
           crossAxisCount: 3,
           children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[100],
+            ElevatedButton(
+              onPressed: () async {
+                await Permission.manageExternalStorage.request();
+                print(Directory("/storage/emulated/0/").listSync());
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(8),
+                // fixedSize: const Size(200, 60),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
+                )
+              ),
+              // padding: const EdgeInsets.all(8),
+              // color: Colors.teal[100],
               child: const Column(
                 children: [
                   Icon(
@@ -97,9 +111,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               )
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[200],
+            ElevatedButton(
+              onPressed: (){print("Downloads");},
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(8),
+                // fixedSize: const Size(200, 60),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
+                )
+              ),
               child: const Column(
                 children: [
                   Icon(
