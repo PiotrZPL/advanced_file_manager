@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'pages/directory_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -90,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: () async {
                 await Permission.manageExternalStorage.request();
-                print(Directory("/storage/emulated/0/").listSync());
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => DirectoryPage(listOfFileSystemEntities: Directory("/storage/emulated/0/").listSync())));
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(8),
