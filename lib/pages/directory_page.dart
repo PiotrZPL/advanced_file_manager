@@ -25,7 +25,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("OK"),
+        title: Text(widget.directoryName),
       ),
       body: Center(
         child: ListView(
