@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../tools/launch_directory_page.dart';
+
 class DirectoryPage extends StatefulWidget {
   const DirectoryPage({
     super.key,
@@ -38,10 +40,20 @@ class _DirectoryPageState extends State<DirectoryPage> {
     List<FileSystemEntity> listOfFileSystemEntities = Directory(widget.directoryPath).listSync();
     listOfFileSystemEntities.sort(((a, b) => a.path.split("/").last.compareTo(b.path.split("/").last)));
     for (FileSystemEntity entity in listOfFileSystemEntities) {
+      String directoryName = entity.path.split("/").last;
       listOfFileSystemEntityViews += [
         ListTile(
-          title: Text(entity.path.split("/").last),
+          title: Text(directoryName),
           leading: entity is Directory ? const Icon(Icons.folder) : const Icon(Icons.file_open),
+          onTap: () {
+            if (entity is Directory) {
+                launchDirectoryPage(
+                context: context,
+                directoryName: directoryName,
+                directoryPath: entity.path
+              );
+            }
+          },
         )
       ];
     }
