@@ -3,9 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class DirectoryPage extends StatefulWidget {
-  const DirectoryPage({super.key, required this.listOfFileSystemEntities});
+  const DirectoryPage({
+    super.key,
+    required this.directoryName,
+    required this.directoryPath
+  });
 
-  final List<FileSystemEntity> listOfFileSystemEntities;
+  final String directoryName;
+  final String directoryPath;
 
   @override
   State<DirectoryPage> createState() => _DirectoryPageState();
@@ -23,14 +28,16 @@ class _DirectoryPageState extends State<DirectoryPage> {
       body: Center(
         child: ListView(
           children: buildViews()
-        ),
+        )
       ),
     );
   }
 
   List<Widget> buildViews() {
     List<Widget> listOfFileSystemEntityViews = [];
-    for (FileSystemEntity entity in widget.listOfFileSystemEntities) {
+    List<FileSystemEntity> listOfFileSystemEntities = Directory(widget.directoryPath).listSync();
+    listOfFileSystemEntities.sort(((a, b) => a.path.split("/").last.compareTo(b.path.split("/").last)));
+    for (FileSystemEntity entity in listOfFileSystemEntities) {
       listOfFileSystemEntityViews += [
         ListTile(
           title: Text(entity.path.split("/").last),
