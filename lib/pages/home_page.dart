@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             height: 2,
                           ),
-                          Text("Videaos")
+                          Text("Videos")
                         ],
                       )
                     ),
