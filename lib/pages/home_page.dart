@@ -20,11 +20,11 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Advanced file manager"),
       ),
       body: Center(
-        child: FutureBuilder<PermissionStatus>(
-          future: Permission.manageExternalStorage.status,
+        child: FutureBuilder<bool>(
+          future: Permission.manageExternalStorage.isGranted,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data != PermissionStatus.granted) {
+              if (snapshot.data!) {
                 return GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),
