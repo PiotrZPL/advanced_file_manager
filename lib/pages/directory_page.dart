@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../tools/launch_directory_page.dart';
 
@@ -45,13 +47,19 @@ class _DirectoryPageState extends State<DirectoryPage> {
         ListTile(
           title: Text(directoryName),
           leading: entity is Directory ? const Icon(Icons.folder) : const Icon(Icons.file_open),
-          onTap: () {
+          onTap: () async {
             if (entity is Directory) {
                 launchDirectoryPage(
                 context: context,
                 directoryName: directoryName,
                 directoryPath: entity.path
               );
+            }
+            else if (entity is File) {
+              if (entity.path.endsWith(".apk")) {
+                Permission.requestInstallPackages.request();
+              }
+              OpenFile.open(entity.path);
             }
           },
         )
