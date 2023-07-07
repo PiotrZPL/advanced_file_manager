@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'pages/directory_page.dart';
 import 'tools/launch_directory_page.dart';
 
 void main() {
@@ -19,21 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -44,15 +26,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -83,77 +56,105 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 3,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () async {
-                await Permission.manageExternalStorage.request();
-                launchDirectoryPage(directoryName: "Main storage", directoryPath: "/storage/emulated/0/", context: context);
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(8),
-                // fixedSize: const Size(200, 60),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
-                )
-              ),
-              // padding: const EdgeInsets.all(8),
-              // color: Colors.teal[100],
-              child: const Column(
-                children: [
-                  Icon(
-                    Icons.storage,
-                    size: 56,
-                  ),
-                  Text("Main storage")
-                ],
-              )
-            ),
-            ElevatedButton(
-              onPressed: (){print("Downloads");},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(8),
-                // fixedSize: const Size(200, 60),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
-                )
-              ),
-              child: const Column(
-                children: [
-                  Icon(
-                    Icons.download,
-                    size: 56,
-                  ),
-                  Text("Downloads")
-                ],
-              )
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[300],
-              child: const Text('Sound of screams but the'),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[400],
-              child: const Text('Who scream'),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[500],
-              child: const Text('Revolution is coming...'),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[600],
-              child: const Text('Revolution, they...'),
-            ),
-          ],
+        child: FutureBuilder<PermissionStatus>(
+          future: Permission.manageExternalStorage.status,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data == PermissionStatus.granted) {
+                return GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 3,
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () {
+                        launchDirectoryPage(directoryName: "Main storage", directoryPath: "/storage/emulated/0/", context: context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        // fixedSize: const Size(200, 60),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        )
+                      ),
+                      // padding: const EdgeInsets.all(8),
+                      // color: Colors.teal[100],
+                      child: const Column(
+                        children: [
+                          Icon(
+                            Icons.storage,
+                            size: 56,
+                          ),
+                          Text("Main storage")
+                        ],
+                      )
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        // fixedSize: const Size(200, 60),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        )
+                      ),
+                      child: const Column(
+                        children: [
+                          Icon(
+                            Icons.download,
+                            size: 56,
+                          ),
+                          Text("Downloads")
+                        ],
+                      )
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[300],
+                      child: const Text('Sound of screams but the'),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[400],
+                      child: const Text('Who scream'),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[500],
+                      child: const Text('Revolution is coming...'),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[600],
+                      child: const Text('Revolution, they...'),
+                    ),
+                  ],
+                );
+              }
+              else {
+                return ListView(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        await Permission.manageExternalStorage.request();
+                        setState(() {
+                          
+                        });
+                        },
+                      child: const Text("Grant"),
+                    )
+                  ]
+                );
+              }
+            }
+            else if (snapshot.hasError) {
+              return const Text("error");
+            }
+            return const Text("loading");
+          }
         )
       ),
     );
