@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../tools/launch_directory_page.dart';
 
@@ -47,9 +48,12 @@ class _HomePageState extends State<HomePage> {
                       // color: Colors.teal[100],
                       child: const Column(
                         children: [
-                          Icon(
+                          FaIcon(
                             Icons.storage,
                             size: 56,
+                          ),
+                          SizedBox(
+                            height: 2,
                           ),
                           Text("Main storage")
                         ],
@@ -67,33 +71,108 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: const Column(
                         children: [
-                          Icon(
-                            Icons.download,
+                          FaIcon(
+                            FontAwesomeIcons.download,
                             size: 56,
+                          ),
+                          SizedBox(
+                            height: 2,
                           ),
                           Text("Downloads")
                         ],
                       )
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[300],
-                      child: const Text('Sound of screams but the'),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        // fixedSize: const Size(200, 60),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        )
+                      ),
+                      child: const Column(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.book,
+                            size: 56,
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text("Documents")
+                        ],
+                      )
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[400],
-                      child: const Text('Who scream'),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        // fixedSize: const Size(200, 60),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        )
+                      ),
+                      child: const Column(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.image,
+                            size: 56,
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text("Images")
+                        ],
+                      )
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[500],
-                      child: const Text('Revolution is coming...'),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        // fixedSize: const Size(200, 60),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        )
+                      ),
+                      child: const Column(
+                        children: [
+                          FaIcon(
+                            Icons.music_note,
+                            size: 56,
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text("Audio")
+                        ],
+                      )
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[600],
-                      child: const Text('Revolution, they...'),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(8),
+                        // fixedSize: const Size(200, 60),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        )
+                      ),
+                      child: const Column(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.film,
+                            size: 56,
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text("Videaos")
+                        ],
+                      )
                     ),
                   ],
                 );
