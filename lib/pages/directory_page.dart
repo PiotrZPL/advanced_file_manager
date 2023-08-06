@@ -105,7 +105,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
             ),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: renameFileSystemEntity,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0),
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -230,6 +230,49 @@ class _DirectoryPageState extends State<DirectoryPage> {
     }
     else {
       throw Exception("Something went wrong");
+    }
+  }
+
+  Future<void> renameFileSystemEntity() async {
+    TextEditingController textEditingController = TextEditingController();
+
+    if (selectedFileSystemEntity != null) {
+      String fileSystemEntityName = selectedFileSystemEntity!.path.split("/").last;
+      textEditingController.text = fileSystemEntityName;
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Rename file"),
+            content: TextField(
+              controller: textEditingController
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: const Text('OK'),
+                onPressed: () async {
+                  List<String> pathAsList = selectedFileSystemEntity!.path.split("/");
+                  pathAsList.removeLast();
+                  pathAsList += [textEditingController.text];
+                  String newPath = pathAsList.join("/");
+                  await selectedFileSystemEntity!.rename(newPath);
+                  await refreshPage();
+                  selectedFileSystemEntity = null;
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+            ],
+          );
+        }
+      );
     }
   }
 }
