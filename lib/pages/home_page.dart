@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../tools/launch_directory_page.dart';
 
@@ -46,16 +46,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                       // padding: const EdgeInsets.all(8),
                       // color: Colors.teal[100],
-                      child: const Column(
+                      child: Column(
                         children: [
-                          FaIcon(
-                            Icons.storage,
-                            size: 56,
-                          ),
-                          SizedBox(
+                          SvgPicture.asset("assets/icons/drive-harddisk.svg"),
+                          const SizedBox(
                             height: 2,
                           ),
-                          Text("Main storage")
+                          const Text("Main storage")
                         ],
                       )
                     ),
@@ -69,16 +66,13 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(7),
                         )
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
-                          FaIcon(
-                            FontAwesomeIcons.download,
-                            size: 56,
-                          ),
-                          SizedBox(
+                          SvgPicture.asset("assets/icons/folder-download.svg"),
+                          const SizedBox(
                             height: 2,
                           ),
-                          Text("Downloads")
+                          const Text("Downloads")
                         ],
                       )
                     ),
@@ -92,16 +86,13 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(7),
                         )
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
-                          FaIcon(
-                            FontAwesomeIcons.book,
-                            size: 56,
-                          ),
-                          SizedBox(
+                          SvgPicture.asset("assets/icons/folder-documents.svg"),
+                          const SizedBox(
                             height: 2,
                           ),
-                          Text("Documents")
+                          const Text("Documents")
                         ],
                       )
                     ),
@@ -115,16 +106,13 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(7),
                         )
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
-                          FaIcon(
-                            FontAwesomeIcons.image,
-                            size: 56,
-                          ),
-                          SizedBox(
+                          SvgPicture.asset("assets/icons/folder-pictures.svg"),
+                          const SizedBox(
                             height: 2,
                           ),
-                          Text("Images")
+                          const Text("Images")
                         ],
                       )
                     ),
@@ -138,16 +126,13 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(7),
                         )
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
-                          FaIcon(
-                            Icons.music_note,
-                            size: 56,
-                          ),
-                          SizedBox(
+                          SvgPicture.asset("assets/icons/folder-music.svg"),
+                          const SizedBox(
                             height: 2,
                           ),
-                          Text("Audio")
+                          const Text("Audio")
                         ],
                       )
                     ),
@@ -161,16 +146,13 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(7),
                         )
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
-                          FaIcon(
-                            FontAwesomeIcons.film,
-                            size: 56,
-                          ),
-                          SizedBox(
+                          SvgPicture.asset("assets/icons/folder-video.svg"),
+                          const SizedBox(
                             height: 2,
                           ),
-                          Text("Videos")
+                          const Text("Videos")
                         ],
                       )
                     ),
