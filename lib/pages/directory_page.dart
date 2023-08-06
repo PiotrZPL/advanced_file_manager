@@ -32,12 +32,12 @@ class _DirectoryPageState extends State<DirectoryPage> {
         title: Text(widget.directoryName),
       ),
       body: Center(
-        child: FutureBuilder<List<Widget>>(
-          future: buildViews(),
+        child: FutureBuilder<List<FileSystemEntity>>(
+          future: getListOfFileSystemEntities(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView(
-                children: snapshot.data!
+                children: buildViews(snapshot.data!)
               );
             }
             else if (snapshot.hasError) {
@@ -159,10 +159,14 @@ class _DirectoryPageState extends State<DirectoryPage> {
     );
   }
 
-  Future<List<Widget>> buildViews() async {
-    List<Widget> listOfFileSystemEntityViews = [];
+  Future<List<FileSystemEntity>> getListOfFileSystemEntities() async {
     List<FileSystemEntity> listOfFileSystemEntities = await Directory(widget.directoryPath).list().toList();
     listOfFileSystemEntities.sort(((a, b) => a.path.split("/").last.compareTo(b.path.split("/").last)));
+    return listOfFileSystemEntities;
+  }
+
+  List<Widget> buildViews(List<FileSystemEntity> listOfFileSystemEntities) {
+    List<Widget> listOfFileSystemEntityViews = [];
     for (FileSystemEntity entity in listOfFileSystemEntities) {
       String directoryName = entity.path.split("/").last;
       listOfFileSystemEntityViews += [
