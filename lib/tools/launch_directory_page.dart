@@ -7,8 +7,10 @@ void launchDirectoryPage({
   required String directoryPath,
   required BuildContext context
 }) {
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => DirectoryPage(
+  Navigator.of(context).push(PageRouteBuilder(pageBuilder: (context, animation1, animation2) => DirectoryPage(
     directoryName: directoryName,
     directoryPath: directoryPath,
-  )));
+  ),
+  transitionDuration: Duration.zero,
+  reverseTransitionDuration: Duration.zero));
 }
