@@ -30,16 +30,30 @@ class _DirectoryPageState extends State<DirectoryPage> {
         title: Text(widget.directoryName),
       ),
       body: Center(
-        child: ListView(
-          children: buildViews()
+        child: FutureBuilder<List<Widget>>(
+          future: buildViews(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
+                children: snapshot.data!
+              );
+            }
+            else if (snapshot.hasError) {
+              if (snapshot.error is PathAccessException) {
+                return const Text("Cannot access this location: permission denied.");
+              }
+              return const Text("ERROR 101");
+            }
+            return const CircularProgressIndicator();
+          }
         )
       ),
     );
   }
 
-  List<Widget> buildViews() {
+  Future<List<Widget>> buildViews() async {
     List<Widget> listOfFileSystemEntityViews = [];
-    List<FileSystemEntity> listOfFileSystemEntities = Directory(widget.directoryPath).listSync();
+    List<FileSystemEntity> listOfFileSystemEntities = await Directory(widget.directoryPath).list().toList();
     listOfFileSystemEntities.sort(((a, b) => a.path.split("/").last.compareTo(b.path.split("/").last)));
     for (FileSystemEntity entity in listOfFileSystemEntities) {
       String directoryName = entity.path.split("/").last;
