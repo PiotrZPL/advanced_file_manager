@@ -18,6 +18,12 @@ Widget getIconForEntity(FileSystemEntity entity) {
         return SvgPicture.asset("assets/icons/file-audio.svg");
       case FileType.document:
         return SvgPicture.asset("assets/icons/file-document-word.svg");
+      case FileType.wordDocument:
+        return SvgPicture.asset("assets/icons/file-document-word.svg");
+      case FileType.presentationDocument:
+        return SvgPicture.asset("assets/icons/file-document-presentation.svg");
+      case FileType.spreadsheetDocument:
+        return SvgPicture.asset("assets/icons/file-document-spreadsheet.svg");
       case FileType.image:
         return SvgPicture.asset("assets/icons/file-image.svg");
       case FileType.pdf:

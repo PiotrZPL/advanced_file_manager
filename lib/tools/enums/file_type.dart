@@ -6,5 +6,8 @@ enum FileType {
   pdf,
   apk,
   archive,
+  wordDocument,
+  presentationDocument,
+  spreadsheetDocument,
   unknown
 }
