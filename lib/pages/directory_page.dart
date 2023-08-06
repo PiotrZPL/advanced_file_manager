@@ -23,6 +23,13 @@ class DirectoryPage extends StatefulWidget {
 
 class _DirectoryPageState extends State<DirectoryPage> {
   String? selectedFile = null;
+  late Future<List<FileSystemEntity>> listOfFileSystemEntities;
+
+  @override
+  void initState() {
+    super.initState();
+    listOfFileSystemEntities = getListOfFileSystemEntities();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +38,27 @@ class _DirectoryPageState extends State<DirectoryPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.directoryName),
       ),
-      body: Center(
-        child: FutureBuilder<List<FileSystemEntity>>(
-          future: getListOfFileSystemEntities(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView(
-                children: buildViews(snapshot.data!)
-              );
-            }
-            else if (snapshot.hasError) {
-              if (snapshot.error is PathAccessException) {
-                return const Text("Cannot access this location: permission denied.");
+      body: RefreshIndicator(
+        onRefresh: refreshPage,
+        child: Center(
+          child: FutureBuilder<List<FileSystemEntity>>(
+            future: listOfFileSystemEntities,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView(
+                  children: buildViews(snapshot.data!)
+                );
               }
-              return const Text("ERROR 101");
+              else if (snapshot.hasError) {
+                if (snapshot.error is PathAccessException) {
+                  return const Text("Cannot access this location: permission denied.");
+                }
+                return const Text("ERROR 101");
+              }
+              return const CircularProgressIndicator();
             }
-            return const CircularProgressIndicator();
-          }
-        )
+          )
+        ),
       ),
       bottomNavigationBar: selectedFile != null ? BottomAppBar(
         child: Row(
@@ -203,5 +213,12 @@ class _DirectoryPageState extends State<DirectoryPage> {
       ];
     }
     return listOfFileSystemEntityViews;
+  }
+
+  Future<void> refreshPage() async {
+    List<FileSystemEntity> newListOfFileSystemEntities = await getListOfFileSystemEntities();
+    setState(() {
+      listOfFileSystemEntities = Future.value(newListOfFileSystemEntities);
+    });
   }
 }
