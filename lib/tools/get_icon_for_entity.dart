@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'get_file_type.dart';
 import 'enums/file_type.dart';
@@ -10,22 +11,22 @@ Widget getIconForEntity(FileSystemEntity entity) {
     FileType fileType = getFileType(entity.path);
     switch (fileType) {
       case FileType.apk:
-        return const Icon(Icons.android);
+        return SvgPicture.asset("assets/icons/file-apk.svg");
       case FileType.archive:
-        return const Icon(Icons.archive, size: 40,);
+        return SvgPicture.asset("assets/icons/file-archive.svg");
       case FileType.audio:
-        return const Icon(Icons.music_note, size: 40,);
+        return SvgPicture.asset("assets/icons/file-audio.svg");
       case FileType.document:
-        return const Icon(Icons.edit_document, size: 40,);
+        return SvgPicture.asset("assets/icons/file-document-word.svg");
       case FileType.image:
-        return const Icon(Icons.image, size: 40,);
+        return SvgPicture.asset("assets/icons/file-image.svg");
       case FileType.pdf:
-        return const Icon(Icons.picture_as_pdf, size: 40,);
+        return SvgPicture.asset("assets/icons/file-pdf.svg");
       case FileType.video:
-        return const Icon(Icons.movie, size: 40,);
+        return SvgPicture.asset("assets/icons/file-video.svg");
       default:
-        return const Icon(Icons.file_present, size: 40,);
+        return SvgPicture.asset("assets/icons/file-text.svg");
     }
   }
-  return const Icon(Icons.folder, size: 40,);
+  return SvgPicture.asset("assets/icons/folder.svg");
 }
