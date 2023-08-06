@@ -19,10 +19,16 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: lightColorScheme ?? const ColorScheme.light(),
           useMaterial3: true,
+          listTileTheme: ListTileThemeData(
+            selectedTileColor: Theme.of(context).highlightColor
+          )
         ),
         darkTheme: ThemeData(
           colorScheme: darkColorScheme ?? const ColorScheme.dark(),
           useMaterial3: true,
+          listTileTheme: ListTileThemeData(
+            selectedTileColor: Theme.of(context).highlightColor
+          )
         ),
         themeMode: ThemeMode.system,
         home: const HomePage(),

@@ -22,6 +22,7 @@ class DirectoryPage extends StatefulWidget {
 }
 
 class _DirectoryPageState extends State<DirectoryPage> {
+  String? selectedFile = null;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,112 @@ class _DirectoryPageState extends State<DirectoryPage> {
           }
         )
       ),
+      bottomNavigationBar: selectedFile != null ? BottomAppBar(
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.copy
+                    ),
+                    Text(
+                      "Copy",
+                    ),
+                  ],
+                ),
+              )
+            ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.cut
+                    ),
+                    Text(
+                      "Move",
+                    )
+                  ]
+                )
+              )
+            ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.edit
+                    ),
+                    Text(
+                      "Rename",
+                    )
+                  ]
+                )
+              )
+            ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.delete
+                    ),
+                    Text(
+                      "Delete",
+                    )
+                  ]
+                )
+              )
+            ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.more_vert
+                    ),
+                    Text(
+                      "More",
+                    )
+                  ]
+                )
+              )
+            )
+          ],
+        )
+      ) : null
     );
   }
 
@@ -62,6 +169,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
         ListTile(
           title: Text(directoryName),
           leading: getIconForEntity(entity),
+          selected: selectedFile == entity.path ? true : false,
           onTap: () async {
             if (entity is Directory) {
                 launchDirectoryPage(
@@ -76,6 +184,16 @@ class _DirectoryPageState extends State<DirectoryPage> {
               }
               OpenFile.open(entity.path);
             }
+          },
+          onLongPress: () {
+            setState(() {
+              if (selectedFile == entity.path) {
+                selectedFile = null;
+              }
+              else {
+                selectedFile = entity.path;
+              }
+            });
           },
         )
       ];
