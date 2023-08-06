@@ -22,7 +22,7 @@ class DirectoryPage extends StatefulWidget {
 }
 
 class _DirectoryPageState extends State<DirectoryPage> {
-  String? selectedFile = null;
+  FileSystemEntity? selectedFileSystemEntity;
   late Future<List<FileSystemEntity>> listOfFileSystemEntities;
 
   @override
@@ -60,7 +60,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
           )
         ),
       ),
-      bottomNavigationBar: selectedFile != null ? BottomAppBar(
+      bottomNavigationBar: selectedFileSystemEntity != null ? BottomAppBar(
         child: Row(
           children: [
             Expanded(
@@ -125,7 +125,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
             ),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: deleteFileSystemEntity,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0),
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -183,7 +183,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
         ListTile(
           title: Text(directoryName),
           leading: getIconForEntity(entity),
-          selected: selectedFile == entity.path ? true : false,
+          selected: selectedFileSystemEntity?.path == entity.path ? true : false,
           onTap: () async {
             if (entity is Directory) {
                 launchDirectoryPage(
@@ -201,11 +201,11 @@ class _DirectoryPageState extends State<DirectoryPage> {
           },
           onLongPress: () {
             setState(() {
-              if (selectedFile == entity.path) {
-                selectedFile = null;
+              if (selectedFileSystemEntity?.path == entity.path) {
+                selectedFileSystemEntity = null;
               }
               else {
-                selectedFile = entity.path;
+                selectedFileSystemEntity = entity;
               }
             });
           },
@@ -220,5 +220,16 @@ class _DirectoryPageState extends State<DirectoryPage> {
     setState(() {
       listOfFileSystemEntities = Future.value(newListOfFileSystemEntities);
     });
+  }
+
+  Future<void> deleteFileSystemEntity() async {
+    if (selectedFileSystemEntity != null) {
+      await selectedFileSystemEntity!.delete();
+      selectedFileSystemEntity = null;
+      await refreshPage();
+    }
+    else {
+      throw Exception("Something went wrong");
+    }
   }
 }
