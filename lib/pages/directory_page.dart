@@ -5,6 +5,7 @@ import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../tools/launch_directory_page.dart';
+import '../tools/get_icon_for_entity.dart';
 
 class DirectoryPage extends StatefulWidget {
   const DirectoryPage({
@@ -60,7 +61,7 @@ class _DirectoryPageState extends State<DirectoryPage> {
       listOfFileSystemEntityViews += [
         ListTile(
           title: Text(directoryName),
-          leading: entity is Directory ? const Icon(Icons.folder) : const Icon(Icons.file_open),
+          leading: getIconForEntity(entity),
           onTap: () async {
             if (entity is Directory) {
                 launchDirectoryPage(
